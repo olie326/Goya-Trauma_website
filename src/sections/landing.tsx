@@ -32,8 +32,6 @@ export const Landing = React.forwardRef<LandingRef, Props>((_props, ref) => {
 
   const updateImageState = () => {
     flipState.current = Flip.getState(imageRef.current);
-    console.log("current filp state: ");
-    console.log(flipState.current);
     setImage(true);
   };
 
@@ -100,7 +98,6 @@ export const Landing = React.forwardRef<LandingRef, Props>((_props, ref) => {
 
   useGSAP(
     () => {
-      console.log("started!!!!");
       if (imageRef.current) {
         // Assuming the elements have equal height or calculating total height
 
@@ -131,7 +128,6 @@ export const Landing = React.forwardRef<LandingRef, Props>((_props, ref) => {
           "<"
         );
 
-        console.log("ran1!");
         if (!flipState.current) return;
         tl.add(
           Flip.from(flipState.current, {
@@ -157,7 +153,6 @@ export const Landing = React.forwardRef<LandingRef, Props>((_props, ref) => {
           }),
           "<"
         );
-        console.log("ran2!");
         if (!captionRef.current) return;
         const words = captionRef.current.children;
         tl.from(words, {
@@ -171,7 +166,6 @@ export const Landing = React.forwardRef<LandingRef, Props>((_props, ref) => {
             start: "bottom bottom-=10",
           },
         });
-        console.log("ran3!");
       }
     },
     { dependencies: [image], revertOnUpdate: false, scope: sectionRef }

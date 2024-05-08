@@ -48,22 +48,17 @@ function App() {
   const lenisRef = useRef<any>(null);
 
   useGSAP(() => {
-    console.log(lenisRef.current);
     if (lenisRef.current.lenis) {
       lenisRef.current.lenis.lerp = 1;
-      console.log(lenisRef.current);
     }
     function update(time: number) {
       lenisRef.current?.lenis?.raf(time * 1000);
-      // console.log("updatedddd");
     }
 
     gsap.ticker.add(update);
-    console.log("updated");
 
     return () => {
       gsap.ticker.remove(update);
-      console.log("removed");
     };
   });
   const landingRef = useRef<LandingRef>(null);
@@ -100,17 +95,13 @@ function App() {
   const [scroll, setScroll] = useState(true);
   useToggleScroll(!scroll);
 
-  useEffect(() => {
-    console.log("scroll: ", scroll);
-  }, [scroll]);
+  useEffect(() => {}, [scroll]);
   useGSAP(() => {
     if (!lenisRef.current) return;
     if (scroll) {
       lenisRef.current.lenis?.start();
-      console.log("scroll started");
     } else {
       lenisRef.current.lenis?.stop();
-      console.log("scroll stopped");
     }
   }, [scroll]);
 
@@ -148,129 +139,5 @@ function App() {
     </AllowScroll.Provider>
   );
 }
-
-// ------------ LEGACY FOR TEXT SLIDESHOW ------------- //
-
-// const [height, setHeight] = useState(0);
-
-// useEffect(() => {
-//   if (pplRef.current) {
-//     const updateHeight = () => {
-//       if (pplRef.current) {
-//         if (pplRef.current.offsetHeight > 0) {
-//           const newHeight = pplRef.current.offsetHeight;
-//           setHeight(newHeight);
-//         } else {
-//           const newHeight = getHeight(pplRef.current);
-//           console.log(newHeight);
-//           setHeight(newHeight);
-//           console.log("rerender");
-//         }
-//       }
-//     };
-
-//     const observer = new ResizeObserver((entries) => {
-//       console.log("observer triggered");
-//       for (let entry of entries) {
-//         if (entry.target === pplRef.current) {
-//           updateHeight();
-//         }
-//       }
-//     });
-
-//     observer.observe(pplRef.current);
-
-//     return () => {
-//       console.log("Observer disconnected");
-//       observer.disconnect();
-//     };
-//   }
-// }, []);
-
-// useEffect(() => {
-//   document
-//     .querySelectorAll<HTMLElement>(".text-slideshow")
-//     .forEach((element) => {
-//       element.style.height = `${height}px`;
-//     });
-// }, [height]);
-
-// useGSAP(
-//   () => {
-//     if (textRef.current && pplRef.current) {
-//       // Assuming the elements have equal height or calculating total height
-
-//       const textSlideshowElements =
-//         document.querySelectorAll<HTMLElement>(".text-slideshow");
-
-//       if (textSlideshowElements.length > 0) {
-//         const lines = Array.from(textSlideshowElements);
-//         const rows = lines.length;
-
-//         console.log(height);
-
-//         if (rows > 0) {
-//           const firstRow = Array.from(lines[0].childNodes);
-//           const columns = firstRow.length;
-
-//           for (let col = 0; col < columns; col++) {
-//             const last = col === columns - 1;
-//             const yOffset = last
-//               ? -1 * height * col
-//               : -1 * height * (col + 1) - height * 0.3;
-
-//             if (col === 0 || last) {
-//               for (let row = 0; row < rows; row++) {
-//                 const curr = Array.from(lines[row].childNodes);
-
-//                 tl.current.to(
-//                   curr[col],
-//                   {
-//                     duration: 2,
-//                     y: yOffset,
-//                     ease: "power3.out",
-//                   },
-//                   "<"
-//                 );
-//               }
-//             } else {
-//               //entry animation
-//               for (let row = 0; row < rows; row++) {
-//                 const curr = Array.from(lines[row].childNodes);
-
-//                 tl.current.to(
-//                   curr[col],
-//                   {
-//                     duration: 2,
-//                     y: -1 * height * col,
-//                     ease: "power3.out",
-//                   },
-//                   "<"
-//                 );
-//               }
-//               //exit animation per column
-//               for (let row = 0; row < rows; row++) {
-//                 const curr = Array.from(lines[row].childNodes);
-
-//                 tl.current.to(
-//                   curr[col],
-//                   {
-//                     duration: 2,
-//                     delay: row === 0 ? 4 : undefined,
-//                     y: -1 * height * (col + 1) - height * 0.3,
-//                     ease: "power3.out",
-//                   },
-//                   "<"
-//                 );
-//               }
-//             }
-//           }
-//         }
-//       }
-//       tl.current.play();
-//     }
-//   },
-//   { revertOnUpdate: true, dependencies: [height] }
-// );
 
 export default App;

@@ -137,12 +137,10 @@ const A = React.forwardRef<HTMLAnchorElement, LinkProps>(
     );
     const handleMouseEnter = () => {
       if (animation.current) animation.current.tweenFromTo(0, "midway");
-      console.log("mouse entered");
     };
 
     const handleMouseLeave = () => {
       if (animation.current) animation.current.play();
-      console.log("mouse left");
     };
 
     return (
@@ -211,12 +209,10 @@ const H1A = React.forwardRef<HTMLAnchorElement, LinkProps>(
     );
     const handleMouseEnter = () => {
       if (animation.current) animation.current.tweenFromTo(0, "midway");
-      console.log("mouse entered");
     };
 
     const handleMouseLeave = () => {
       if (animation.current) animation.current.play();
-      console.log("mouse left");
     };
 
     return (

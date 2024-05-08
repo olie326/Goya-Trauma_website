@@ -29,7 +29,6 @@ const Video = React.forwardRef<HTMLButtonElement, VideoButtonProps>(
       } else {
         setVisible(clicked);
       }
-      console.log("rerendered!!!!!!!!!1");
     }, [clicked]);
 
     return (

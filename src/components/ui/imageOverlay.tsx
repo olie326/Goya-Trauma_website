@@ -29,10 +29,6 @@ const ImageOverlay = React.forwardRef<HTMLDivElement, ImageOverlayProps>(
     const position = useMouse(overlayRef);
     const cursorButtonRef = useRef<HTMLButtonElement | null>(null);
 
-    // useEffect(() => {
-    //   console.log("overlay updated");
-    // });
-
     useGSAP(
       () => {
         if (!cursorButtonRef) return;
@@ -56,10 +52,8 @@ const ImageOverlay = React.forwardRef<HTMLDivElement, ImageOverlayProps>(
     useEffect(() => {
       if (position.inside) {
         setIsHovering(true);
-        console.log("entered!");
       } else {
         setIsHovering(false);
-        console.log("left!");
       }
     }, [position]);
 

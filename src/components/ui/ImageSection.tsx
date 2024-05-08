@@ -1,4 +1,4 @@
-import React, { CSSProperties, useCallback, useEffect, useRef } from "react";
+import React, { CSSProperties, useCallback, useRef } from "react";
 import useFullscreen from "../../util/useFullscreen";
 import { ImageOverlay } from "./imageOverlay";
 import clsx from "clsx";
@@ -56,11 +56,6 @@ export const ImageSection = React.forwardRef<
     const overlayRef = useRef<HTMLDivElement>(null);
 
     const mergedRefs = useMergeRefs<HTMLImageElement>([ref, imgRef]);
-
-    console.log("imgRef: ", imgRef.current);
-    useEffect(() => {
-      console.log("rerendered!!!!!");
-    });
 
     const { clicked, onVideoClick } = useFullscreen(
       imgRef,

@@ -18,12 +18,11 @@ export default function useFullscreen(
 
   const onVideoClick = () => {
     videoState.current = Flip.getState(ref.current);
-    console.log("videoState :", videoState.current);
+
     if (overlayRef) {
       overlayState.current = Flip.getState(overlayRef.current, {
         props: "backgroundOpacity, backgroundColor, backdropFilter",
       });
-      console.log("overlayState :", overlayState.current);
     }
     setClicked(!clicked);
   };
@@ -31,19 +30,10 @@ export default function useFullscreen(
   useGSAP(
     () => {
       if (!ref.current || !videoState.current) return;
-
-      console.log("flip states: ", ref.current);
-      console.log(videoState.current.elementStates[0]);
-
-      console.log("ran!");
-
       const tl = Flip.from(videoState.current, {
         ease: "expo.inOut",
         targets: target ? [target] : null,
         duration: 1,
-        onComplete: () => {
-          console.log("flip completed!");
-        },
       });
 
       if (overlayRef?.current && overlayState.current) {
@@ -51,9 +41,6 @@ export default function useFullscreen(
           Flip.from(overlayState.current, {
             ease: "expo.inOut",
             duration: 0.5,
-            onComplete: () => {
-              console.log("overlay flip completed!");
-            },
           }),
           "<"
         );

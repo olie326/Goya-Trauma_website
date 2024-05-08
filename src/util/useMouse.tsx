@@ -38,7 +38,6 @@ export default function useMouse(
         livePosition.x <= rect.right &&
         livePosition.y >= rect.top &&
         livePosition.y <= rect.bottom;
-      console.log(livePosition.y, rect.top, rect.bottom);
       setPosition((prev) => ({
         ...prev,
         inside: inside,

@@ -43,7 +43,6 @@ export const TraumaDefinitionSection = React.forwardRef<
   useGSAP(
     () => {
       if (!suicideInContextRef.current) return;
-      console.log(suicideInContextRef.current);
 
       tl.from(suicideInContextRef.current, {
         yPercent: 100,

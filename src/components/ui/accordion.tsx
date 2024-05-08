@@ -52,10 +52,8 @@ const AccordionRoot = React.forwardRef<HTMLDivElement, AccordionRootProps>(
       if (!lightAnimation.current || open) return;
       if (isHovering) {
         lightAnimation.current.play();
-        console.log("played");
       } else {
         lightAnimation.current.reverse();
-        console.log("reversed");
       }
     }, [isHovering]);
 
