@@ -3,7 +3,7 @@ import {
   ArrowTopRightIcon,
   PlayIcon,
 } from "@radix-ui/react-icons";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useImperativeHandle, useRef, useState } from "react";
 import useMouse from "../../util/useMouse";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -21,13 +21,17 @@ interface VideoOverlayProps extends React.ComponentPropsWithRef<"button"> {
 
 const ImageOverlay = React.forwardRef<HTMLDivElement, ImageOverlayProps>(
   ({ clicked, handleClick, children, ...props }, ref) => {
+    const overlayRef = useRef<HTMLDivElement>(null);
+
+    useImperativeHandle(ref, () => overlayRef.current as HTMLDivElement);
+
     //custom cursor
-    const position = useMouse();
+    const position = useMouse(overlayRef);
     const cursorButtonRef = useRef<HTMLButtonElement | null>(null);
 
-    useEffect(() => {
-      console.log("overlay updated");
-    });
+    // useEffect(() => {
+    //   console.log("overlay updated");
+    // });
 
     useGSAP(
       () => {
@@ -49,6 +53,16 @@ const ImageOverlay = React.forwardRef<HTMLDivElement, ImageOverlayProps>(
     //hover effect
     const [isHovering, setIsHovering] = useState(false);
 
+    useEffect(() => {
+      if (position.inside) {
+        setIsHovering(true);
+        console.log("entered!");
+      } else {
+        setIsHovering(false);
+        console.log("left!");
+      }
+    }, [position]);
+
     return (
       <div
         className="absolute top-0 left-0 h-[160vh] w-screen z-30"
@@ -58,7 +72,7 @@ const ImageOverlay = React.forwardRef<HTMLDivElement, ImageOverlayProps>(
         onMouseLeave={() => {
           setIsHovering(false);
         }}
-        ref={ref}
+        ref={overlayRef}
         {...props}
       >
         {children}
